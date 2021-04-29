@@ -1,3 +1,5 @@
+- The code will poll for available centers according to the settings at constants.js
+- Once the center is obtain, it will try to book a slot.
 ## Constants
 Fill the following constants
 - **distId** - Select the district from the list given in constants.js,
