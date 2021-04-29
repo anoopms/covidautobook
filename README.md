@@ -6,7 +6,7 @@ Fill the following constants
 
 ## How to run
 
-Get this code
+Get this code.  Do the above modification in constants.js and then
 
 `npm install`
 
