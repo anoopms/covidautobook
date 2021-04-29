@@ -2,10 +2,11 @@ const fetch = require('node-fetch');
 const CryptoJS = require("crypto-js");
 const sha256 = require("crypto-js/sha256");
 const _ = require('lodash');
+const CONSTANT = require('./constants');
 
 let info = {};
 
-const beneficiaries = ["2585763369970"];
+const beneficiaries = CONSTANT.beneficiaries;
 const DOSE = 2;
 
 const getBody = (data) => {
