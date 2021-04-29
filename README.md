@@ -8,6 +8,7 @@ beneficiaries: User who need vaccine. This you need to get it from cowin app. Lo
 
 Get this code
 `npm install`
+
 `npm run try`
 
 
