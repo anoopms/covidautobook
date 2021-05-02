@@ -3,16 +3,17 @@ const player = require('play-sound')(opts = {})
 const _ = require('lodash');
 const login = require('./login');
 const CONSTANT = require('./constants');
+const format = require('dateformat');
 
 const distId = CONSTANT.distId;
 const preferredPin = CONSTANT.preferredPin;
-
+const date = format(new Date, 'dd-mm-yyyy');
 
 const doLoop = () => {
 	console.log(new Date().toLocaleString());
 	const time = setInterval(function () {
 		console.log('Trying at...', new Date().toLocaleString());
-		fetch(`https://api.cowin.gov.in/api/v2/appointment/sessions/calendarByDistrict?district_id=${distId}&date=30-04-2021&vaccine=COVISHIELD`)
+		fetch(`https://api.cowin.gov.in/api/v2/appointment/sessions/calendarByDistrict?district_id=${distId}&date=${date}`)
 			.then(data => data.json())
 			.then(data => {
 				console.log('Centers count ', data, data.centers.length)

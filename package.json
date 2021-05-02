@@ -6,6 +6,7 @@
   "dependencies": {
     "baudio": "2.1.4",
     "crypto-js": "4.0.0",
+    "dateformat": "4.5.1",
     "fetch": "1.1.0",
     "lodash": "4.17.21",
     "node-fetch": "2.6.1",
