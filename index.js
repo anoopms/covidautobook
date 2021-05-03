@@ -7,11 +7,11 @@ const format = require('dateformat');
 
 const distId = CONSTANT.distId;
 const preferredPin = CONSTANT.preferredPin;
-const date = format(new Date, 'dd-mm-yyyy');
 
 const doLoop = () => {
 	console.log(new Date().toLocaleString());
 	const time = setInterval(function () {
+		const date = format(new Date(), 'dd-mm-yyyy');
 		console.log('Trying at...', new Date().toLocaleString());
 		fetch(`https://api.cowin.gov.in/api/v2/appointment/sessions/calendarByDistrict?district_id=${distId}&date=${date}`)
 			.then(data => data.json())
@@ -25,7 +25,7 @@ const doLoop = () => {
 						clearInterval(time);
 						login(center, doLoop);
 					} else {
-						console.log('Got centers but not for ' + preferredPin.join(', '));
+						console.log(`Got ${data.centers.length} centers but not for ` + preferredPin.join(', '));
 					}
 
 				}
@@ -33,7 +33,7 @@ const doLoop = () => {
 			.catch((err) => {
 				console.log(err);
 				console.log('FAILED', new Date().toLocaleString());
-				player.play('./failure.mp3', () => { })
+				// player.play('./failure.mp3', () => { })
 				// clearInterval(time);
 			});
 	}, 1000 * 60 * 5);

@@ -53,5 +53,6 @@ const b = [
 module.exports = {
     distId: 308,
     preferredPin: [679101, 679104],
-    beneficiaries: ["2585763369970"]
+    beneficiaries: ["2585763369970"],
+    phone: 0
 };

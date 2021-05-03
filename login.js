@@ -92,7 +92,7 @@ const getInput = (txnId) => {
 
 const doLogin = (center, goBack = () => {}) => {
 	const secret = CryptoJS.AES.encrypt('b5cab167-7977-4df1-8027-a63aa144f04e', 'CoWIN@$#&*(!@%^&').toString();
-	const mobile = 9562119597;
+	const mobile = CONSTANT.phone;
 	info = {center, goBack};
 	console.log(secret);
 
