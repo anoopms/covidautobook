@@ -62,7 +62,8 @@ const doLoop = () => {
 
 const getCenter = (centers = []) => {
 	return _.find(centers, (center) => {
-		return preferredPin.indexOf(center.pincode) !== -1;
+		const sessions = center.sessions;
+		return preferredPin.indexOf(center.pincode) !== -1 && sessions.some(item => item.available_capacity > 0);
 	});
 
 }

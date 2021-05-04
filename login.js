@@ -31,13 +31,23 @@ const getBody = (data) => {
 	};
 }
 
+const getAvailableSession = (center = {}) => {
+	return (center.sessions || []).find(item => item.available_capacity > 0)
+}
+
 const schedule = () => {
+	const session = getAvailableSession(info.center);
+	if(!session) {
+		console.log('Cant find session');
+		return;
+	}
+
 	const data = {
 		beneficiaries,
 		center_id: _.get(info, 'center.center_id'),
 		dose: DOSE,
-		session_id: _.get(info, 'center.sessions[0].session_id'),
-		slot: _.get(info, 'center.sessions[0].slots[0]')
+		session_id: _.get(session, 'session_id'),
+		slot: _.get(session, 'slots[0]')
 	};
 
 	const body = getBody(data);
