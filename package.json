@@ -1,7 +1,7 @@
 {
   "name": "cov",
   "version": "1.0.0",
-  "description": "",
+  "description": "- The code will poll for available centers according to the settings at constants.js - Once the center is obtain, it will try to book a slot. ## Constants Fill the following constants - **distId** - Select the district from the list given in constants.js, - **preferredPin** - Pin of preffered hospital, - **beneficiaries** - User who needs the vaccine. This you need to get it from cowin app. Login. Take developer tools network. Check the response of beneficiaries url",
   "main": "index.js",
   "dependencies": {
     "baudio": "2.1.4",
@@ -10,7 +10,8 @@
     "fetch": "1.1.0",
     "lodash": "4.17.21",
     "node-fetch": "2.6.1",
-    "play-sound": "1.1.3"
+    "play-sound": "1.1.3",
+    "twilio": "3.30.0"
   },
   "devDependencies": {},
   "scripts": {
@@ -18,5 +19,14 @@
     "try": "node index.js"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anoopms/covidautobook.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/anoopms/covidautobook/issues"
+  },
+  "homepage": "https://github.com/anoopms/covidautobook#readme"
 }

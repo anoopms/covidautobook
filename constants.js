@@ -51,8 +51,9 @@ const b = [
 ]
 
 module.exports = {
-    distId: 308,
+    distId: 294,
     preferredPin: [679101, 679104],
     beneficiaries: ["2585763369970"],
-    phone: 0
+    phone: 9562119597,
+    vaccine: 'COVISHIELD'
 };
