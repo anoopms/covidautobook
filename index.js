@@ -14,37 +14,31 @@ let lastFound = [];
 const doLoop = () => {
 	console.log(new Date().toLocaleString());
 	const time = setInterval(function myTimeCallback() {
-		const date = format(new Date(), 'dd-mm-yyyy');
+		const date = format(new Date(), 'dd-mm-yyyy');	
+		// const date = format(new Date(new Date().getTime() + 1000 * 60 * 60 * 24), 'dd-mm-yyyy');
 		console.log('Trying at...', new Date().toLocaleString());
-		fetch(`https://api.cowin.gov.in/api/v2/appointment/sessions/calendarByDistrict?district_id=${distId}&date=${date}`)
+		fetch(`https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id=${distId}&date=${date}`)
 			.then(data => data.json())
 			.then(data => {
-				const found = data.centers.map(item => {
+				const filCenters = data.centers.filter((cItem) => {
+					const sessions = cItem.sessions || [];
+					const ret = sessions.some(item => (
+						item.available_capacity_dose2 && item.vaccine === "COVISHIELD" && (cItem.address || '').toLowerCase().indexOf('angamaly') !== -1
+					));
+					return ret;
+				})
+				const found = filCenters.map(item => {
 					const sessions = item.sessions || [];
-					const isAvailable = sessions.some(item => item.available_capacity > 0);
-					const isVaccine = sessions.some(item => item.vaccine  === CONSTANT.vaccine);
-					const str = isAvailable && isVaccine ? '*' : '';
-					return `${str}${item.name} ${item.pincode}${str}`;
+					const capacity = sessions.reduce((sum, item) => sum + item.available_capacity, 0);
+					return `${item.name} ${item.pincode} (${capacity})`;
 				});
-				console.log('Centers count ', data.centers.length, found)
-		
-				
-				if (data.centers.length) {
-					const center = getCenter(data.centers);
-					if (center) {
-						console.log('GOT', new Date().toLocaleString(), center);
-						player.play('./success.mp3', () => { })
-						clearInterval(time);
-						login(center, doLoop);
-					} else {
-						console.log(`Got ${data.centers.length} centers but not for ` + preferredPin.join(', '));
-					}
-
+				console.log('Centers count ', found)
+				if (found.length) {
 					if(!_.isEqual(lastFound, found)) {
+						// console.log(JSON.stringify(filCenters));
 						lastFound = found;
 						const message = found.join('\n');
-						const bottom = center ? '*GOT CENTER*' : `\n-Got ${data.centers.length} centers but not for ` + preferredPin.join(', ') + '-';
-						watsapp(message + bottom);
+						watsapp(message);
 					}
 				}
 			})
@@ -55,7 +49,7 @@ const doLoop = () => {
 				// clearInterval(time);
 			});
 		return myTimeCallback;
-	}(), 1000 * 60 * 5);
+	}(), 1000 * 60);
 
 };
 
